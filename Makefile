@@ -25,5 +25,6 @@ $(LIB_OUT): $(OBJ)
 	$(CC) $(CFLAGS) -c $^ $(INC)
 
 clean:
+	make clean -C deps/rmath/
 	@rm -f $(BIN) $(OBJ) $(TEST) $(LIB_OUT)
 	@echo Cleaned up build files.
