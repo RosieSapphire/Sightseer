@@ -24,5 +24,5 @@ $(LIB_OUT): $(OBJ)
 	$(CC) $(CFLAGS) -c $< $(INC)
 
 clean:
-	make clean -C $(RMATH_DIR)
 	rm -f $(LIB_OUT) $(TEST) $(OBJ)
+	make clean -C $(RMATH_DIR)

@@ -3,3 +3,4 @@
 *.a
 *.o
 compile_commands.json
+libsightseer_test
