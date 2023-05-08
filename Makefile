@@ -12,11 +12,11 @@ RMATH_DIR=deps/rmath
 default: $(LIB_OUT)
 
 test: $(LIB_OUT)
-	make -C $(RMATH_DIR)
 	$(CC) $(CFLAGS) $^ -o $(TEST) $(INC) $(LIB) -L. -l:$<
 	rm -rf *.o
 
 $(LIB_OUT): $(OBJ)
+	make -C $(RMATH_DIR)
 	ar rcs $@ $^
 	rm -rf *.o
 
@@ -24,5 +24,5 @@ $(LIB_OUT): $(OBJ)
 	$(CC) $(CFLAGS) -c $< $(INC)
 
 clean:
-	make clean -C deps/rmath
+	make clean -C $(RMATH_DIR)
 	rm -f $(LIB_OUT) $(TEST) $(OBJ)
