@@ -1,13 +1,13 @@
+RMATH_DIR=deps/rmath
+
 CC=cc
 CFLAGS=-Wall -Wextra -O2
-INC=-Iinclude -Ideps/rmath/include
-LIB=-lm -Ldeps/rmath -lrmath
+INC=-Iinclude -I$(RMATH_DIR)/include
+LIB=-lm -L$(RMATH_DIR) -lrmath
 SRC=$(wildcard src/*.c)
 OBJ=$(patsubst src/%.c,%.o,$(SRC))
 LIB_OUT=libsightseer.a
 TEST=libsightseer_test
-
-RMATH_DIR=deps/rmath
 
 default: $(LIB_OUT)
 
