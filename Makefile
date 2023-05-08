@@ -1,30 +1,28 @@
 CC=cc
-CFLAGS=-Wall -Wextra -Og -g3
+CFLAGS=-Wall -Wextra -O2
 INC=-Iinclude -Ideps/rmath/include
 LIB=-lm -Ldeps/rmath -lrmath
 SRC=$(wildcard src/*.c)
-OBJ=$(patsubst src/%.c, %.o, $(SRC))
-TEST=camera_test
+OBJ=$(patsubst src/%.c,%.o,$(SRC))
 LIB_OUT=libsightseer.a
+TEST=libsightseer_test
 
-lib: $(LIB_OUT)
-test: $(TEST)
-default: lib
+RMATH_DIR=deps/rmath
 
-$(TEST): $(LIB_OUT)
-	$(CC) $(CFLAGS) $^ -o $@ $(INC) $(LIB) -L. -lsightseer
-	rm -f *.o
-	@echo Success!
+default: $(LIB_OUT)
+
+test: $(LIB_OUT)
+	make -C $(RMATH_DIR)
+	$(CC) $(CFLAGS) $^ -o $(TEST) $(INC) $(LIB) -L. -l:$<
+	rm -rf *.o
 
 $(LIB_OUT): $(OBJ)
-	make -C deps/rmath/
 	ar rcs $@ $^
 	rm -rf *.o
 
 %.o: src/%.c
-	$(CC) $(CFLAGS) -c $^ $(INC)
+	$(CC) $(CFLAGS) -c $< $(INC)
 
 clean:
-	make clean -C deps/rmath/
-	@rm -f $(BIN) $(OBJ) $(TEST) $(LIB_OUT)
-	@echo Cleaned up build files.
+	make clean -C deps/rmath
+	rm -f $(LIB_OUT) $(TEST) $(OBJ)
